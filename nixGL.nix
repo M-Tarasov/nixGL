@@ -42,12 +42,12 @@ let
       # add the 32 bits drivers if needed
       text = let
         mesa-drivers = [ mesa ]
-          ++ lib.optional enable32bits pkgsi686Linux.mesa.drivers;
+          ++ lib.optional enable32bits pkgsi686Linux.mesa;
         libvdpau = [ libvdpau-va-gl ]
           ++ lib.optional enable32bits pkgsi686Linux.libvdpau-va-gl;
         glxindirect = runCommand "mesa_glxindirect" { } (''
           mkdir -p $out/lib
-          ln -s ${mesa.drivers}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
+          ln -s ${mesa}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
         '');
       in ''
         #!${runtimeShell}
